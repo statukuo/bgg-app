@@ -4,12 +4,14 @@ import { Component } from 'react';
 import linkState from 'linkstate';
 import { AppContext } from '../../Context';
 import { withRouter } from '../../withRouter';
+import CustomNavBar from '../../components/NavBar';
 
 class Login extends Component {
   static contextType = AppContext;
   state = {
     username: "",
-    password: ""
+    password: "",
+    error: false
   };
 
   constructor(props) {
@@ -19,29 +21,53 @@ class Login extends Component {
 
   async login(e) {
     e.preventDefault();
-    await this.context.userService.login(this.state.username, this.state.password);
+    const response = await this.context.userService.login(this.state.username, this.state.password);
 
-    this.props.navigate("/bookings");
+    if (response) {
+      this.setState({ error: false });
+      this.props.navigate("/bookings");
+    } else {
+      this.setState({ error: true });
+    }
   }
 
+  getInput
+
   render() {
-    return <div className="Login">
-      <header className="Login-header">
-        <Row className="mx-0">
-          <Form onSubmit={(e) => this.login(e)}>
-            <h3>Sign In</h3>
-            <div className="form-group">
-              <label>Username</label>
-              <input type="text" className="form-control" placeholder="Enter username" onInput={linkState(this, 'username')} />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input type="password" className="form-control" placeholder="Enter password" onInput={linkState(this, 'password')} />
-            </div>
-            <Button type="submit" className="btn btn-primary btn-block">Submit</Button>
-          </Form>
-        </Row>
-      </header>
+    return <div className="page">
+      <CustomNavBar />
+      <div className="Login">
+        <header className="Login-header">
+          <Row className="mx-0">
+            <Form onSubmit={(e) => this.login(e)}>
+              <h3>Sign In</h3>
+              <Form.Group>
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  value={this.state.username}
+                  onChange={linkState(this, 'username')}
+                  isInvalid={this.state.error}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={linkState(this, 'password')}
+                  isInvalid={this.state.error}
+                />
+              </Form.Group>
+              <Button type="submit" className="btn btn-primary btn-block">Submit</Button>
+            </Form>
+          </Row>
+        </header>
+      </div>
     </div>;
   }
 }

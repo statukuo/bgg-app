@@ -5,7 +5,6 @@ import Login from "./pages/login";
 import User from "./pages/user";
 import RequireAuth from "./components/RequireAuth";
 import Bookings from "./pages/bookings";
-
 class App extends Component {
   static contextType = AppContext;
 

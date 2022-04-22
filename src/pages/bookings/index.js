@@ -3,6 +3,7 @@ import './_style.css';
 import { Component } from 'react';
 import { AppContext } from '../../Context';
 import { map }from 'lodash';
+import CustomNavBar from '../../components/NavBar';
 
 class Bookings extends Component {
   static contextType = AppContext;
@@ -34,10 +35,13 @@ class Bookings extends Component {
   }
 
   render() {
-    return <div className="Bookings">
-      <header className="Bookings-header">
-        {this.renderBookings(this.state.bookingsData)}
-      </header>
+    return <div className="page">
+      <CustomNavBar/>
+      <div className="Bookings">
+        <header className="Bookings-header">
+          {this.renderBookings(this.state.bookingsData)}
+        </header>
+      </div>
     </div>;
   }
 }
