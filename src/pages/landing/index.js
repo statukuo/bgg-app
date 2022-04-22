@@ -21,8 +21,8 @@ function Landing() {
         </a>
 
         <Row className="mx-0">
-          <LinkContainer to="/login">
-            <Button>LOGIN</Button>
+          <LinkContainer to="/user">
+            <Button>User</Button>
           </LinkContainer>
         </Row>
       </header>

@@ -28,22 +28,21 @@ class UserService {
     }
 
     async getUserData() {
-        if (this.userData) {
-            return this.userData;
+        if (!this.userData) {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/bookings/users/current`);
+            this.userData = response.data;
         }
 
         if (!this.loggedIn) {
             return {};
         }
 
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/bookings/users/current`);
-
-        console.log(response);
-
-        return true;
+        return this.userData;
     }
 
-
+    get isLoggedIn() {
+        return this.loggedIn;
+    }
 }
 
 export default UserService;

@@ -1,30 +1,31 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Landing from "./pages/landing";
-import { Component, useContext } from "react";
-import Login from "./pages/login";
+import { Routes, Route } from "react-router-dom";
+import { Component } from "react";
 import { AppContext } from "./Context";
+import Landing from "./pages/landing";
+import Login from "./pages/login";
+import User from "./pages/user";
+import RequireAuth from "./components/RequireAuth";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.userService = props.context.userService;
-  }
+  static contextType = AppContext;
 
   render() {
     return (
       <div className="App">
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/bookings" element={!this.userService.loggedIn ? <Navigate to="/" /> : <Landing />}/>
+          <Route path="/bookings" element={<RequireAuth>
+            <Landing />
+          </RequireAuth>}
+          />
+          <Route path="/user" element={<RequireAuth>
+            <User />
+          </RequireAuth>}
+          />
         </Routes>
       </div>
     );
   }
 }
 
-export default function AppWrapper(props) {
-  const context = useContext(AppContext);
-
-  return <App {...props} context={context} />;
-}
+export default App;
