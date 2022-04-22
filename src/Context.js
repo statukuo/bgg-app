@@ -1,11 +1,13 @@
 import React from "react";
+import BookingService from "./services/bookingService";
 import UserService from "./services/userService";
 
 export const AppContext = React.createContext();
 
 class Context extends React.Component {
   state = {
-    userService: new UserService()
+    userService: new UserService(),
+    bookingsService: new BookingService()
   };
 
   //Now you can place all of your logic here
