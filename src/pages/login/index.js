@@ -1,21 +1,32 @@
 import { Button, Form, Row } from 'react-bootstrap';
 import './_style.css';
-import { Component } from 'react';
-import { AppContext } from '../../Context';
+import { Component, useContext } from 'react';
 import linkState from 'linkstate';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../Context';
 
 class Login extends Component {
-  static contextType = AppContext;
   state = {
     username: "",
     password: ""
   };
 
+  constructor(props) {
+    super(props);
+
+    console.log(...arguments)
+
+    this.navigate = props.navigate;
+    this.userService = props.context.userService;
+  }
+
   async login(e) {
     e.preventDefault();
 
-    await this.context.userService.login(this.state.username, this.state.password);
-    this.context.userService.getUserData();
+    await this.userService.login(this.state.username, this.state.password);
+    await this.userService.getUserData();
+
+    this.navigate("/bookings");
   }
 
   render() {
@@ -40,4 +51,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default function LoginWrapper(props) {
+  const navigate = useNavigate();
+  const context = useContext(AppContext);
+
+  return <Login {...props} navigate={navigate} context={context} />;
+}
