@@ -44,6 +44,29 @@ class UserService {
         return this.userData;
     }
 
+    async updatePassword(newPassword, repeatedPassword, oldPassword) {
+        try {
+            const userData = await this.getUserData();
+
+            if (!userData) {
+                return false;
+            }
+
+            await axios.put(`${process.env.REACT_APP_API_URL}/api-token-auth/change_password/${userData.id}/`, {
+                password: newPassword,
+                password2: repeatedPassword,
+                old_password: oldPassword
+            });
+
+            this.userData = null;
+            this.loggedIn = false;
+
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     get isLoggedIn() {
         return this.loggedIn;
     }

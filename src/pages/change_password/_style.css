@@ -1,9 +1,9 @@
-.User {
+.ChangePassword {
   text-align: center;
 }
 
 
-.User-header {
+.ChangePassword-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -13,6 +13,6 @@
   color: white;
 }
 
-.User-link {
+.ChangePassword-link {
   color: #61dafb;
 }

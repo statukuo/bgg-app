@@ -3,6 +3,7 @@ import { Component } from "react";
 import { AppContext } from "./Context";
 import Login from "./pages/login";
 import User from "./pages/user";
+import ChangePassword from "./pages/change_password";
 import RequireAuth from "./components/RequireAuth";
 import Bookings from "./pages/bookings";
 class App extends Component {
@@ -19,6 +20,10 @@ class App extends Component {
           />
           <Route path="/user" element={<RequireAuth>
             <User />
+          </RequireAuth>}
+          />
+          <Route path="/change-password" element={<RequireAuth>
+            <ChangePassword />
           </RequireAuth>}
           />
         </Routes>
