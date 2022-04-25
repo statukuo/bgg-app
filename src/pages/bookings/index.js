@@ -1,9 +1,10 @@
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import './_style.css';
 import { Component } from 'react';
 import { AppContext } from '../../Context';
 import { map }from 'lodash';
 import CustomNavBar from '../../components/NavBar';
+import { Link } from 'react-router-dom';
 
 class Bookings extends Component {
   static contextType = AppContext;
@@ -40,6 +41,9 @@ class Bookings extends Component {
       <div className="Bookings">
         <header className="Bookings-header">
           {this.renderBookings(this.state.bookingsData)}
+          <Link to="/create-booking">
+            <Button variant='success'>Create</Button>
+          </Link>
         </header>
       </div>
     </div>;

@@ -6,6 +6,7 @@ import User from "./pages/user";
 import ChangePassword from "./pages/change_password";
 import RequireAuth from "./components/RequireAuth";
 import Bookings from "./pages/bookings";
+import CreateBooking from "./pages/create_booking";
 class App extends Component {
   static contextType = AppContext;
 
@@ -16,6 +17,10 @@ class App extends Component {
           <Route path="/" element={<Login />} />
           <Route path="/bookings" element={<RequireAuth>
             <Bookings />
+          </RequireAuth>}
+          />
+          <Route path="/create-booking" element={<RequireAuth>
+            <CreateBooking />
           </RequireAuth>}
           />
           <Route path="/user" element={<RequireAuth>
