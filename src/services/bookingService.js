@@ -1,12 +1,11 @@
-import axios from 'axios';
-
+import axios from './authService';
 
 class BookingService {
     bookingsData = null;
 
     async getAll(force) {
         if(force || !this.bookingsData) {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/bookings/bookings`);
+            const response = await axios.get('/bookings/bookings');
 
             this.bookingsData = response.data;
         }
@@ -15,7 +14,7 @@ class BookingService {
     }
 
     async createBooking(bookingData) {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/bookings/bookings/`, {
+        const response = await axios.post('/bookings/bookings/', {
             creator: `${process.env.REACT_APP_API_URL}/bookings/users/${bookingData.creator}/`,
             title: bookingData.title,
             description: bookingData.description,

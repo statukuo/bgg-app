@@ -1,29 +1,34 @@
-import axios from 'axios';
-
+import axios from './authService';
+import tokenService from './tokenService';
 
 class UserService {
     loggedIn = false;
     userData = null;
 
+    async start() {
+        try {
+            await axios.get(`/api/token/validate`);
+
+            console.log("LOGGED IN");
+
+            this.loggedIn = true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async login(username, password) {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api-token-auth/`, {
+            const response = await axios.post('/api/token/', {
                 username,
                 password
             });
 
-            axios.interceptors.request.use(request => {
-                const isLoggedIn = response.data.token;
-                const isApiUrl = request.url.startsWith(process.env.REACT_APP_API_URL);
-
-                if (isLoggedIn && isApiUrl) {
-                    request.headers.common.Authorization = `Token ${response.data.token}`;
-                }
-
-                return request;
+            tokenService.setAuthData({
+                accessToken: response.data.access,
+                refreshToken: response.data.refresh
             });
-
-            this.loggedIn = !!response.data.token;
+            await this.start();
 
             return this.loggedIn;
         } catch (error) {
@@ -31,9 +36,14 @@ class UserService {
         }
     }
 
+    async logout() {
+        tokenService.removeAuthData();
+        this.loggedIn = false;
+    }
+
     async getUserData() {
         if (!this.userData) {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/bookings/users/current`);
+            const response = await axios.get('/bookings/users/current');
             this.userData = response.data;
         }
 
@@ -52,7 +62,7 @@ class UserService {
                 return false;
             }
 
-            await axios.put(`${process.env.REACT_APP_API_URL}/api-token-auth/change_password/${userData.id}/`, {
+            await axios.put(`/api/change_password/${userData.id}/`, {
                 password: newPassword,
                 password2: repeatedPassword,
                 old_password: oldPassword

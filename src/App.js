@@ -14,8 +14,7 @@ class App extends Component {
     return (
       <div className="App">
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/bookings" element={<RequireAuth>
+          <Route path="/" element={<RequireAuth>
             <Bookings />
           </RequireAuth>}
           />
@@ -31,6 +30,7 @@ class App extends Component {
             <ChangePassword />
           </RequireAuth>}
           />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     );

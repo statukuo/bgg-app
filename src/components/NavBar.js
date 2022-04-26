@@ -1,10 +1,18 @@
 import { useContext } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../Context";
 
 function CustomNavBar() {
-    if (!useContext(AppContext).userService.isLoggedIn) {
+    const userService = useContext(AppContext).userService;
+    const navigate = useNavigate();
+
+    const logOut =  () => {
+        userService.logout();
+        navigate("/");
+    }
+
+    if (!userService.isLoggedIn) {
         return <Navbar bg="light">
             <Container>
                 <Navbar.Brand to='/'>
@@ -16,14 +24,15 @@ function CustomNavBar() {
 
     return <Navbar bg="light">
         <Container>
-            <Navbar.Brand to='/bookings'>
+            <Navbar.Brand to='/'>
                 BoardGameGasteiz
             </Navbar.Brand>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Link to="/bookings" className="nav-link">Bookings</Link>
+                    <Link to="/" className="nav-link">Bookings</Link>
                     <Link to="/user" className="nav-link">User</Link>
                 </Nav>
+                <Button onClick={logOut} variant="outline-success">Log Out</Button>
             </Navbar.Collapse>
         </Container>
     </Navbar>

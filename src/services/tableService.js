@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from './authService';
 
 class TableService {
     tables = null;

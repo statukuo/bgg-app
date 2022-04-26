@@ -25,13 +25,19 @@ class Login extends Component {
 
     if (response) {
       this.setState({ error: false });
-      this.props.navigate("/bookings");
+      this.props.navigate("/");
     } else {
       this.setState({ error: true });
     }
   }
 
-  getInput
+  async componentDidMount() {
+    await this.context.userService.start();
+
+    if (this.context.userService.isLoggedIn) {
+      this.props.navigate("/");
+    }
+  }
 
   render() {
     return <div className="page">
