@@ -40,7 +40,7 @@ class CreateBooking extends Component {
       creator: currentUser.id,
       title: this.state.title,
       description: this.state.description,
-      table: 1,
+      table: this.state.table,
       maxParticipants: this.state.maxParticipants,
       startDate,
       endDate,
@@ -56,16 +56,15 @@ class CreateBooking extends Component {
     }
 
     return map(this.state.tables, table => {
-      return <option value={table.id}>{table.name}</option>;
+      return <option value={table.id} key={table.id}>{table.name}</option>;
     });
   }
-
 
   render() {
     return <div className="page">
       <CustomNavBar />
-      <div className="Bookings">
-        <header className="Bookings-header">
+      <div className="Create-Booking">
+        <header className="Create-Booking-header">
           <Form onSubmit={(e) => this.createBooking(e)}>
             <Form.Group className="mb-3">
               <Form.Label>Title</Form.Label>
@@ -79,11 +78,6 @@ class CreateBooking extends Component {
                 rows={3}
                 onChange={linkState(this, "description")}
               />
-            </Form.Group>
-            <Form.Group>
-              <Form.Select aria-label="Default select example" onChange={linkState(this, "table")}>
-                {this.createTableSelect()}
-              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Max participants</Form.Label>
@@ -110,6 +104,11 @@ class CreateBooking extends Component {
                 type="number"
                 onChange={linkState(this, "duration")}
               />
+            </Form.Group>
+            <Form.Group>
+              <Form.Select aria-label="Default select example" onChange={linkState(this, "table")}>
+                {this.createTableSelect()}
+              </Form.Select>
             </Form.Group>
             <Button variant="primary" type="submit">
               Create

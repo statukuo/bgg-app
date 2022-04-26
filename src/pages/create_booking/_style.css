@@ -1,8 +1,9 @@
-.Bookings {
+.Create-Booking {
   text-align: center;
+  width: 100%;
 }
 
-.Bookings-header {
+.Create-Booking-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -13,10 +14,6 @@
   color: white;
 }
 
-.Bookings .card {
-  color: black;
-}
-
-.Bookings-link {
-  color: #61dafb;
+.Create-Booking .row {
+  width: 100%;
 }
