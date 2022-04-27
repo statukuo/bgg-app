@@ -5,37 +5,118 @@ import { AppContext } from '../../Context';
 import CustomNavBar from '../../components/NavBar';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
-import { ViewState } from '@devexpress/dx-react-scheduler';
-import { Scheduler, DayView, Appointments, Toolbar, DateNavigator, TodayButton } from '@devexpress/dx-react-scheduler-material-ui';
-import moment from 'moment';
+import { ViewState, EditingState, IntegratedEditing, GroupingState, IntegratedGrouping } from '@devexpress/dx-react-scheduler';
+import { Scheduler, DayView, Appointments, Toolbar, DateNavigator, TodayButton, AppointmentTooltip, AppointmentForm, ConfirmationDialog, Resources, DragDropProvider, GroupingPanel, } from '@devexpress/dx-react-scheduler-material-ui';
+import BookingLayout from './booking_layout';
+
+const TextEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.type === 'multilineTextEditor') {
+    return null;
+  } return <AppointmentForm.TextEditor {...props} />;
+};
+
+const BooleanEditor = props => {
+  return null;
+};
+
 
 class Bookings extends Component {
   static contextType = AppContext;
   state = {
     bookingsData: [],
-    currentDate: new Date()
+    currentDate: new Date(),
+    resources: [],
+    currentUser: null
   }
 
   async componentDidMount() {
-    const bookingsData = (await this.context.bookingsService.getAll()).map(booking=> {
+    const currentUser = await this.context.userService.getUserData();
+    const bookingsData = await this.updateBookings();
+    const tables = await this.context.tablesService.getAll();
+
+    this.setState({
+      bookingsData,
+      currentUser,
+      resources: [{
+        fieldName: 'tableId',
+        title: 'Table',
+        instances: tables.map(table => {
+          return {
+            id: table.id,
+            text: table.name
+          }
+        }),
+      }]
+    });
+  }
+
+  async updateBookings(force) {
+    return (await this.context.bookingsService.getAll(force)).map(booking => {
       return {
+        id: booking.id,
+        creator: booking.creator,
         title: booking.title,
-        startDate: moment(booking.start_date).format('YYYY-MM-DDTHH:mm:ss'),
-        endDate: moment(booking.end_date).format('YYYY-MM-DDTHH:mm:ss')
+        startDate: new Date(booking.start_date),
+        endDate: new Date(booking.end_date),
+        maxParticipants: booking.max_participants,
+        description: booking.description,
+        tableId: booking.table
       }
     });
-    this.tables = await this.context.tablesService.getAll();
-
-    console.log(bookingsData);
-
-    this.setState({bookingsData});
   }
 
   currentDateChange(currentDate) {
     this.setState({ currentDate });
   }
 
+  async commitChanges(e) {
+    if (e.added) {
+      await this.context.bookingsService.createBooking({
+        creator: this.state.currentUser.id,
+        title: e.added.title,
+        description: e.added.description,
+        table: e.added.tableId,
+        maxParticipants: e.added.maxParticipants,
+        startDate: e.added.startDate,
+        endDate: e.added.endDate,
+        attendants: [
+          this.state.currentUser.id
+        ]
+      });
+    }
+    if (e.changed) {
+      const bookingId = Object.keys(e.changed)[0];
+      const bookingOwner = this.state.bookingsData.find(booking => parseInt(booking.id) === parseInt(bookingId)).creator;
+      if (bookingOwner === this.state.currentUser.id) {
+        const booking = e.changed[bookingId];
+        await this.context.bookingsService.updateBooking(bookingId,
+          {
+            title: booking.title,
+            description: booking.description,
+            table: booking.tableId,
+            maxParticipants: booking.maxParticipants,
+            startDate: booking.startDate,
+            endDate: booking.endDate
+        });
+      }
+    }
+    if (e.deleted) {
+      const bookingOwner = this.state.bookingsData.find(booking => parseInt(booking.id) === parseInt(e.deleted)).creator;
+      if (bookingOwner === this.state.currentUser.id) {
+        await this.context.bookingsService.deleteBooking(e.deleted);
+      }
+    }
+
+    const bookingsData = await this.updateBookings(true);
+    this.setState({bookingsData})
+  }
+
   render() {
+    if (!this.state.resources.length) {
+      return null;
+    }
+
     return <div className="page">
       <CustomNavBar />
       <div className="Bookings">
@@ -48,14 +129,43 @@ class Bookings extends Component {
                 currentDate={this.state.currentDate}
                 onCurrentDateChange={(e) => this.currentDateChange(e)}
               />
+              <GroupingState
+                grouping={[{
+                  resourceName: 'tableId',
+                }]}
+                groupOrientation={() => "Vertical"}
+              />
               <DayView
-                startDayHour={0}
+                startDayHour={8}
                 endDayHour={24}
               />
+
               <Toolbar />
               <DateNavigator />
               <TodayButton />
+
+              <EditingState
+                onCommitChanges={(e) => this.commitChanges(e)}
+              />
+              <IntegratedEditing />
               <Appointments />
+              <AppointmentTooltip
+                showCloseButton
+                showOpenButton
+              />
+              <ConfirmationDialog />
+              <AppointmentForm
+                basicLayoutComponent={BookingLayout}
+                textEditorComponent={TextEditor}
+                booleanEditorComponent={BooleanEditor}
+              />
+              <Resources
+                data={this.state.resources}
+                mainResourceName="tableId"
+              />
+              <IntegratedGrouping />
+              <DragDropProvider />
+              <GroupingPanel />
             </Scheduler>
           </Paper>
           <Link to="/create-booking">

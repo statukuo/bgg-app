@@ -14,18 +14,37 @@ class BookingService {
     }
 
     async createBooking(bookingData) {
-        const response = await axios.post('/bookings/bookings/', {
-            creator: `${process.env.REACT_APP_API_URL}/bookings/users/${bookingData.creator}/`,
+        await axios.post('/bookings/bookings/', {
+            creator: bookingData.creator,
             title: bookingData.title,
             description: bookingData.description,
-            table: `${process.env.REACT_APP_API_URL}/bookings/tables/${bookingData.table}/`,
+            table: bookingData.table,
             max_participants: bookingData.maxParticipants,
             start_date: bookingData.startDate,
             end_date: bookingData.endDate,
-            attendants: bookingData.attendants.map(attendant => `${process.env.REACT_APP_API_URL}/bookings/users/${attendant}/`)
+            attendants: bookingData.attendants
         });
 
-        console.log(response);
+        return true;
+    }
+
+    async updateBooking(bookingId, bookingData) {
+        await axios.patch(`/bookings/bookings/${bookingId}/`, {
+            creator: bookingData.creator,
+            title: bookingData.title,
+            description: bookingData.description,
+            table: bookingData.table,
+            max_participants: bookingData.maxParticipants,
+            start_date: bookingData.startDate,
+            end_date: bookingData.endDate,
+            attendants: bookingData.attendants
+        });
+
+        return true;
+    }
+
+    async deleteBooking(bookingId) {
+        await axios.delete(`/bookings/bookings/${bookingId}/`);
 
         return true;
     }
