@@ -1,16 +1,9 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
 const connectionString = process.env.ATLAS_URI || "";
 
-const client = new MongoClient(connectionString);
-
-let conn;
 try {
-  conn = await client.connect();
+  await mongoose.connect(connectionString);
 } catch(e) {
   console.error(e);
 }
-
-let db = conn.db("bgg-dev");
-
-export default db;
