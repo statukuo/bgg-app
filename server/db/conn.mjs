@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const connectionString = process.env.ATLAS_URI || "";
+const connectionString = process.env.ATLAS_URI || ''
 
 try {
-  await mongoose.connect(connectionString);
-} catch(e) {
-  console.error(e);
+  await mongoose.connect(connectionString)
+} catch (e) {
+  console.error(e)
 }
