@@ -11,5 +11,23 @@
         "sourceType": "module"
     },
     "rules": {
+        "array-bracket-spacing": ["error", "never"],
+        "object-curly-spacing": ["error", "always"],
+        "quotes": ["error", "double"],
+        "new-cap": ["error", {
+            "capIsNewExceptions": ["Q", "QQ"]
+        }],
+        "no-underscore-dangle": ["off"], /* 'private' class members */
+        "no-multi-spaces": ["off"],
+        "no-spaced-func": ["off"],
+        "no-multiple-empty-lines": ["error"],
+        "no-trailing-spaces": ["error"],
+        "no-console": ["error"],
+        "max-statements": ["error", 28],
+        "complexity": ["error", 14],
+        "accessor-pairs": "off",
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "semi": ["error", "always"],
+        "no-self-assign": ["off"]
     }
 }
