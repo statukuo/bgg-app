@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import Axios from "axios";
+import { useSelector } from "react-redux";
+import { selectToken } from "../features/auth/authSlice";
 
 export default function Edit () {
     const [form, setForm] = useState({
@@ -10,19 +13,20 @@ export default function Edit () {
     });
     const params = useParams();
     const navigate = useNavigate();
+    const token = useSelector(selectToken);
 
     useEffect(() => {
         async function fetchData () {
             const id = params.id.toString();
-            const response = await fetch(`http://localhost:5050/record/${params.id.toString()}`);
+            const response = await Axios.get(`http://localhost:5050/record/${params.id.toString()}`, { headers: { Authorization: `Bearer ${token}` } });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 const message = `An error has occurred: ${response.statusText}`;
                 window.alert(message);
                 return;
             }
 
-            const record = await response.json();
+            const record = await response.data;
             if (!record) {
                 window.alert(`Record with id ${id} not found`);
                 navigate("/");
@@ -51,13 +55,7 @@ export default function Edit () {
         };
 
         // This will send a post request to update the data in the database.
-        await fetch(`http://localhost:5050/record/${params.id}`, {
-            method: "PATCH",
-            body: JSON.stringify(editedPerson),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+        await Axios.patch(`http://localhost:5050/record/${params.id}`, editedPerson, { headers: { Authorization: `Bearer ${token}` } });
 
         navigate("/");
     }

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Axios from "axios";
+import { useSelector } from "react-redux";
+import { selectToken } from "../features/auth/authSlice";
 
 export default function RecordList () {
     const [records, setRecords] = useState([]);
+    const token = useSelector(selectToken);
 
-    // This method fetches the records from the database.
     useEffect(() => {
         async function getRecords () {
-            const response = await fetch("http://localhost:5050/record/");
+            const response = await Axios.get("http://localhost:5050/record/", { headers: { Authorization: `Bearer ${token}` } });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 const message = `An error occurred: ${response.statusText}`;
                 window.alert(message);
                 return;
             }
 
-            const records = await response.json();
+            const records = await response.data;
             setRecords(records);
         }
 
@@ -24,9 +27,7 @@ export default function RecordList () {
 
     // This method will delete a record
     async function deleteRecord (id) {
-        await fetch(`http://localhost:5050/record/${id}`, {
-            method: "DELETE"
-        });
+        await Axios.delete(`http://localhost:5050/record/${id}`, { headers: { Authorization: `Bearer ${token}` } });
 
         const newRecords = records.filter((el) => el._id !== id);
         setRecords(newRecords);

@@ -4,6 +4,7 @@ import "./loadEnvironment.mjs";
 import "./db/conn.mjs";
 import passport from "passport";
 import "./config/passport.mjs";
+import session from "express-session";
 
 import records from "./routes/record.mjs";
 import auth from "./routes/auth.mjs";
@@ -13,10 +14,16 @@ const app = express();
 
 app.use(passport.initialize());
 app.use(cors());
-
 app.use(express.json());
 
-app.use("/record", records);
+app.use(session({
+    secret: "18XX games are long AF",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true }
+}));
+
+app.use("/record", passport.authenticate("jwt"),  records);
 app.use("/auth", auth);
 
 // start the Express server

@@ -1,6 +1,7 @@
 import passport from "passport";
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import User from "../models/users.mjs";
+import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -22,14 +23,19 @@ passport.use(
                 email: profile.emails[0].value,
                 name: profile.displayName
             }, (err, result) => {
-                const userData = {
-                    email: result.email,
-                    name: result.name,
-                    token: accessToken
-                };
-
-                done(err, userData);
+                done(err, result);
             });
         }
     )
 );
+
+passport.use(new JWTStrategy({
+    secretOrKey: "top_secret",
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+}, (token, done) => {
+    try {
+        return done(null, token);
+    } catch (error) {
+        done(error);
+    }
+}));
