@@ -6,7 +6,8 @@ import passport from "passport";
 import "./config/passport.mjs";
 import session from "express-session";
 
-import records from "./routes/record.mjs";
+import record from "./routes/record.mjs";
+import user from "./routes/user.mjs";
 import auth from "./routes/auth.mjs";
 
 const PORT = process.env.PORT || 5050;
@@ -23,7 +24,8 @@ app.use(session({
     cookie: { secure: true }
 }));
 
-app.use("/record", passport.authenticate("jwt"),  records);
+app.use("/record", passport.authenticate("jwt"),  record);
+app.use("/user", passport.authenticate("jwt"),  user);
 app.use("/auth", auth);
 
 // start the Express server

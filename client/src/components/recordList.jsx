@@ -1,39 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Axios from "axios";
-import { useSelector } from "react-redux";
-import { selectToken } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteRecord, getRecords } from "../server_thunks/recordThunks";
+import { selectRecords } from "../slicers/recordsSlice";
 
 export default function RecordList () {
-    const [records, setRecords] = useState([]);
-    const token = useSelector(selectToken);
+    const dispatch = useDispatch();
+
+    const records = useSelector(selectRecords);
 
     useEffect(() => {
-        async function getRecords () {
-            const response = await Axios.get("http://localhost:5050/record/", { headers: { Authorization: `Bearer ${token}` } });
+        dispatch(getRecords());
+    }, [records]);
 
-            if (response.status !== 200) {
-                const message = `An error occurred: ${response.statusText}`;
-                window.alert(message);
-                return;
-            }
-
-            const records = await response.data;
-            setRecords(records);
-        }
-
-        getRecords();
-    }, [records.length]);
-
-    // This method will delete a record
-    async function deleteRecord (id) {
-        await Axios.delete(`http://localhost:5050/record/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-
-        const newRecords = records.filter((el) => el._id !== id);
-        setRecords(newRecords);
-    }
-
-    // This method will map out the records on the table
     function recordList () {
         return records.map((record) => {
             return (<tr key={record._id}>
@@ -44,7 +23,7 @@ export default function RecordList () {
                     <Link className="btn btn-link" to={`/edit/${record._id}`}>Edit</Link> |
                     <button className="btn btn-link"
                         onClick={() => {
-                            deleteRecord(record._id);
+                            dispatch(deleteRecord(record._id));
                         }}
                     >
            Delete

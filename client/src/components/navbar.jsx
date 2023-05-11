@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 // We import NavLink to utilize the react router.
 import { NavLink } from "react-router-dom";
+import UserIcon from "./userIcon";
 
 // Here, we display our Navbar
 export default function Navbar () {
@@ -32,6 +33,7 @@ export default function Navbar () {
                             <NavLink className="nav-link" to="/create">
                Create Record
                             </NavLink>
+                            <UserIcon/>
                         </li>
                     </ul>
                 </div>

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import Axios from "axios";
-import { useSelector } from "react-redux";
-import { selectToken } from "../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { createRecord } from "../server_thunks/recordThunks";
 
 export default function Create () {
-    const token = useSelector(selectToken);
+    const dispatch = useDispatch();
     const [form, setForm] = useState({
         name: "",
         position: "",
@@ -27,10 +26,7 @@ export default function Create () {
         // When a post request is sent to the create url, we'll add a new record to the database.
         const newPerson = { ...form };
 
-        await Axios.post("http://localhost:5050/record", newPerson, { headers: { Authorization: `Bearer ${token}` } })
-            .catch(error => {
-                window.alert(error);
-            });
+        dispatch(createRecord(newPerson));
 
         setForm({ name: "", position: "", level: "" });
         navigate("/list");

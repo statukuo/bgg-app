@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
-import Axios from "axios";
-import { useSelector } from "react-redux";
-import { selectToken } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getRecordToEdit, patchRecord } from "../server_thunks/recordThunks";
+import { selectRecordToEdit } from "../slicers/recordsSlice";
 
 export default function Edit () {
     const [form, setForm] = useState({
@@ -13,31 +13,18 @@ export default function Edit () {
     });
     const params = useParams();
     const navigate = useNavigate();
-    const token = useSelector(selectToken);
+    const dispatch = useDispatch();
+    const recordToEdit = useSelector(selectRecordToEdit);
 
     useEffect(() => {
-        async function fetchData () {
-            const id = params.id.toString();
-            const response = await Axios.get(`http://localhost:5050/record/${params.id.toString()}`, { headers: { Authorization: `Bearer ${token}` } });
+        dispatch(getRecordToEdit(params.id));
+    }, [params.id]);
 
-            if (response.status !== 200) {
-                const message = `An error has occurred: ${response.statusText}`;
-                window.alert(message);
-                return;
-            }
-
-            const record = await response.data;
-            if (!record) {
-                window.alert(`Record with id ${id} not found`);
-                navigate("/");
-                return;
-            }
-
-            setForm(record);
+    useEffect(() => {
+        if (recordToEdit) {
+            setForm(recordToEdit);
         }
-
-        fetchData();
-    }, [params.id, navigate]);
+    }, [recordToEdit]);
 
     // These methods will update the state properties.
     function updateForm (value) {
@@ -55,9 +42,9 @@ export default function Edit () {
         };
 
         // This will send a post request to update the data in the database.
-        await Axios.patch(`http://localhost:5050/record/${params.id}`, editedPerson, { headers: { Authorization: `Bearer ${token}` } });
+        dispatch(patchRecord(params.id, editedPerson));
 
-        navigate("/");
+        navigate("/list");
     }
 
     // This following section will display the form that takes input from the user to update the data.
