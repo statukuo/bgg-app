@@ -37,6 +37,7 @@
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "semi": ["error", "always"],
         "compat/compat": "error",
-        "no-self-assign": ["off"]
+        "no-self-assign": ["off"],
+        "react/prop-types": ["off"]
     }
 }
