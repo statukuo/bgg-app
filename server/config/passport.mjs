@@ -1,5 +1,6 @@
 import passport from "passport";
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
+import User from "../models/users.mjs";
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -17,12 +18,18 @@ passport.use(
             callbackURL: "http://localhost:5050/auth/google/callback"
         },
         function (accessToken, refreshToken, profile, done) {
-            const userData = {
+            User.findOrCreate({
                 email: profile.emails[0].value,
-                name: profile.displayName,
-                token: accessToken
-            };
-            done(null, userData);
+                name: profile.displayName
+            }, (err, result) => {
+                const userData = {
+                    email: result.email,
+                    name: result.name,
+                    token: accessToken
+                };
+
+                done(err, userData);
+            });
         }
     )
 );
