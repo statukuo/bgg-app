@@ -11,6 +11,9 @@ export const authSlice = createSlice({
             state.token = action.payload;
 
             state.loggedIn =  action.payload && action.payload !== "";
+        },
+        setLoggedin: (state, action) => {
+            state.loggedIn = action.payload;
         }
     }
 });
@@ -20,7 +23,8 @@ export const selectLoggedIn = (state) => state.auth.loggedIn;
 
 // Action creators are generated for each case reducer function
 export const {
-    setToken
+    setToken,
+    setLoggedin
 } = authSlice.actions;
 
 export default authSlice.reducer;
