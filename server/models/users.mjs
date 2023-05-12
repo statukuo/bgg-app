@@ -1,12 +1,12 @@
 import { Schema, model } from "mongoose";
-import  findOrCreate from "mongoose-findorcreate";
 
 const user = new Schema({
+    externalId: String,
     name: String,
-    email: String
+    email: String,
+    discordId: String,
+    phoneNumber: String
 });
-
-user.plugin(findOrCreate);
 
 const User = model("User", user);
 export default User;

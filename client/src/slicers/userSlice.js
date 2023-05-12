@@ -4,12 +4,16 @@ export const userSlice = createSlice({
     name: "user",
     initialState: {
         name: "",
-        email: ""
+        email: "",
+        discordId: "",
+        phoneNumber: ""
     },
     reducers: {
         setUser: (state, action) => {
             state.name = action.payload.name;
             state.email = action.payload.email;
+            state.discordId = action.payload.discordId;
+            state.phoneNumber = action.payload.phoneNumber;
         }
     }
 });

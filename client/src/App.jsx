@@ -8,6 +8,7 @@ import Edit from "./components/edit";
 import Create from "./components/create";
 import PrivateRoute from "./components/privateRoute";
 import Login from "./components/login";
+import UserEdit from "./components/userEdit";
 import { selectLoggedIn, setToken } from "./slicers/authSlice";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -44,6 +45,11 @@ const App = () => {
                 <Route path="/edit/:id" element={
                     <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
                         <Edit />
+                    </PrivateRoute>}
+                />
+                <Route path="/editUser" element={
+                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                        <UserEdit />
                     </PrivateRoute>}
                 />
             </Routes>

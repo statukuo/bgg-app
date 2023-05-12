@@ -19,7 +19,7 @@ export default function UserIcon () {
     }
 
     return (
-        <NavLink className="nav-link" to="/create">
+        <NavLink className="nav-link" to="/editUser">
                Welcome: {user.name}
         </NavLink>
     );

@@ -11,7 +11,7 @@ export default function RecordList () {
 
     useEffect(() => {
         dispatch(getRecords());
-    }, [records]);
+    }, [records.length]);
 
     function recordList () {
         return records.map((record) => {
