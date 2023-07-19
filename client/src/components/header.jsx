@@ -1,5 +1,4 @@
 import React from "react";
-// import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 
@@ -8,7 +7,6 @@ const Header = () => (
 
         <div className="grid h-full max-w-lg grid-cols-12 mx-auto px-4">
 
-            {/* Search  */}
             <div className="py-4 col-span-9">
                 <div className="flex items-center rounded-full py-2 md:shadow-sm bg-zinc-700">
                     <input
@@ -22,7 +20,6 @@ const Header = () => (
                 </div>
             </div>
 
-            {/* Right  */}
             <div className="py-4 col-span-3">
                 <div className="flex items-center space-x-4 justify-end text-zinc-300">
                     <p className="hidden">User Name</p>
