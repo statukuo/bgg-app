@@ -1,3 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
 a {
     -webkit-tap-highlight-color: transparent;
     text-decoration: none;
@@ -27,4 +37,12 @@ a {
     padding-right: 4px;
     height: 37px;
     display: inline-block;
+   }
+
+   .mierda {
+    width: 80%;
+   }
+
+   .mierda-2 {
+    width: 20%;
    }

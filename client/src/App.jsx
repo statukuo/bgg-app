@@ -2,7 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import Navbar from "./components/navbar";
+import Home from "./components/home";
+import BottomNav from "./components/bottomNav";
+import Header from "./components/header";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
@@ -12,7 +14,7 @@ import UserEdit from "./components/userEdit";
 import { selectLoggedIn, setToken } from "./slicers/authSlice";
 
 import "bootstrap/dist/css/bootstrap.css";
-import "./styles.css";
+import "./styles/_styles.scss";
 
 const App = () => {
     const params = new URLSearchParams(window.location.search);
@@ -28,10 +30,11 @@ const App = () => {
 
     return (
         <div>
-            <Navbar />
+            <Header />
             <Routes>
                 <Route exact path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/list" element={
                     <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
                         <RecordList />
@@ -53,6 +56,7 @@ const App = () => {
                     </PrivateRoute>}
                 />
             </Routes>
+            <BottomNav />
         </div>
     );
 };
