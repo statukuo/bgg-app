@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { selectLoggedIn } from "../slicers/authSlice";
-import { fetchUserData } from "../server_thunks/userThunks";
+import { selectLoggedIn } from "../../slicers/authSlice";
+import { fetchUserData } from "../../server_thunks/userThunks";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function UserIcon () {

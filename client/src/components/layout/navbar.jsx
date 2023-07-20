@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 // We import NavLink to utilize the react router.
 import { NavLink } from "react-router-dom";
-import UserIcon from "./userIcon";
+import UserIcon from "../user/userIcon";
 
 // Here, we display our Navbar
 export default function Navbar () {

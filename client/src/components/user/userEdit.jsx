@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../slicers/userSlice";
-import { patchCurrentUser } from "../server_thunks/userThunks";
+import { selectUser } from "../../slicers/userSlice";
+import { patchCurrentUser } from "../../server_thunks/userThunks";
 
 export default function UserEdit () {
     const [form, setForm] = useState({

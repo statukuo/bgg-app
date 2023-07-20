@@ -1,6 +1,6 @@
 import React from "react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import UserIcon from "./userIcon";
+import UserIcon from "../user/userIcon";
 
 const Header = () => (
     <header className="sticky top-0 z-50 w-full bg-dark shadow-md">
