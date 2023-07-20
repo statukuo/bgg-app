@@ -1,29 +1,29 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteRecord, getRecords } from "../server_thunks/recordThunks";
-import { selectRecords } from "../slicers/recordsSlice";
+import { deleteGame, getGames } from "../server_thunks/gameThunks";
+import { selectGames } from "../slicers/gamesSlice";
 
-export default function RecordList () {
+export default function GameList () {
     const dispatch = useDispatch();
 
-    const records = useSelector(selectRecords);
+    const games = useSelector(selectGames);
 
     useEffect(() => {
-        dispatch(getRecords());
-    }, [records.length]);
+        dispatch(getGames());
+    }, [games.length]);
 
-    function recordList () {
-        return records.map((record) => {
-            return (<tr key={record._id}>
-                <td>{record.name}</td>
-                <td>{record.position}</td>
-                <td>{record.level}</td>
+    function gameList () {
+        return games.map((game) => {
+            return (<tr key={game._id}>
+                <td>{game.name}</td>
+                <td>{game.position}</td>
+                <td>{game.level}</td>
                 <td>
-                    <Link className="btn btn-link" to={`/edit/${record._id}`}>Edit</Link> |
+                    <Link className="btn btn-link" to={`/edit/${game._id}`}>Edit</Link> |
                     <button className="btn btn-link"
                         onClick={() => {
-                            dispatch(deleteRecord(record._id));
+                            dispatch(deleteGame(game._id));
                         }}
                     >
            Delete
@@ -33,10 +33,10 @@ export default function RecordList () {
         });
     }
 
-    // This following section will display the table with the records of individuals.
+    // This following section will display the table with the games of individuals.
     return (
         <div>
-            <h3>Record List</h3>
+            <h3>Game List</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                     <tr>
@@ -46,7 +46,7 @@ export default function RecordList () {
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>{recordList()}</tbody>
+                <tbody>{gameList()}</tbody>
             </table>
         </div>
     );

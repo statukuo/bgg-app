@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { createRecord } from "../server_thunks/recordThunks";
+import { createGame } from "../server_thunks/gameThunks";
 
 export default function Create () {
     const dispatch = useDispatch();
@@ -23,10 +23,10 @@ export default function Create () {
     async function onSubmit (e) {
         e.preventDefault();
 
-        // When a post request is sent to the create url, we'll add a new record to the database.
+        // When a post request is sent to the create url, we'll add a new game to the database.
         const newPerson = { ...form };
 
-        dispatch(createRecord(newPerson));
+        dispatch(createGame(newPerson));
 
         setForm({ name: "", position: "", level: "" });
         navigate("/list");
@@ -35,7 +35,7 @@ export default function Create () {
     // This following section will display the form that takes the input from the user.
     return (
         <div>
-            <h3>Create New Record</h3>
+            <h3>Create New Game</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>

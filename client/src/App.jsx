@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "./components/navbar";
-import RecordList from "./components/recordList";
+import GameList from "./components/gameList";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import PrivateRoute from "./components/privateRoute";
@@ -34,7 +34,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/list" element={
                     <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <RecordList />
+                        <GameList />
                     </PrivateRoute>}
                 />
                 <Route path="/create" element={

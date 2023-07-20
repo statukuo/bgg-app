@@ -42,7 +42,7 @@ export default function UserEdit () {
     // This following section will display the form that takes input from the user to update the data.
     return (
         <div>
-            <h3>Update Record</h3>
+            <h3>Update Game</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Nombre: </label>

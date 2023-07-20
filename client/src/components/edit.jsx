@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecordToEdit, patchRecord } from "../server_thunks/recordThunks";
-import { selectRecordToEdit } from "../slicers/recordsSlice";
+import { getGameToEdit, patchGame } from "../server_thunks/gameThunks";
+import { selectGameToEdit } from "../slicers/gamesSlice";
 
 export default function Edit () {
     const [form, setForm] = useState({
         name: "",
         position: "",
         level: "",
-        records: []
+        games: []
     });
     const params = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const recordToEdit = useSelector(selectRecordToEdit);
+    const gameToEdit = useSelector(selectGameToEdit);
 
     useEffect(() => {
-        dispatch(getRecordToEdit(params.id));
+        dispatch(getGameToEdit(params.id));
     }, [params.id]);
 
     useEffect(() => {
-        if (recordToEdit) {
-            setForm(recordToEdit);
+        if (gameToEdit) {
+            setForm(gameToEdit);
         }
-    }, [recordToEdit]);
+    }, [gameToEdit]);
 
     // These methods will update the state properties.
     function updateForm (value) {
@@ -42,7 +42,7 @@ export default function Edit () {
         };
 
         // This will send a post request to update the data in the database.
-        dispatch(patchRecord(params.id, editedPerson));
+        dispatch(patchGame(params.id, editedPerson));
 
         navigate("/list");
     }
@@ -50,7 +50,7 @@ export default function Edit () {
     // This following section will display the form that takes input from the user to update the data.
     return (
         <div>
-            <h3>Update Record</h3>
+            <h3>Update Game</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name: </label>
@@ -115,7 +115,7 @@ export default function Edit () {
                 <div className="form-group">
                     <input
                         type="submit"
-                        value="Update Record"
+                        value="Update Game"
                         className="btn btn-primary"
                     />
                 </div>
