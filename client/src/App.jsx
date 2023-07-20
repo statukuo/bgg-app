@@ -31,7 +31,6 @@ const App = () => {
 
     return (
         <div>
-            {/* <Header /> */}
             <Layout>
                 <Routes>
                     <Route exact path="/" element={<Login />} />
@@ -59,7 +58,6 @@ const App = () => {
                     />
                 </Routes>
             </Layout>
-            {/* <BottomNav /> */}
         </div>
     );
 };
