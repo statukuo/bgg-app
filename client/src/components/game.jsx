@@ -6,7 +6,7 @@ const Game = () => (
         <div className="grid grid-cols-2 gap-3">
 
             <div className="relative">
-                <img src="./imgs/nemesis-lockown.jpg" className="h-auto w-full rounded-xl 3xl:h-full 3xl:w-full" alt="" />
+                <img src="./imgs/temp/nemesis-lockown.jpg" className="h-auto w-full rounded-xl 3xl:h-full 3xl:w-full" alt="" />
                 <button className="absolute top-3 right-3 flex items-center justify-center rounded-full bg-orange-400 p-2 hover:cursor-pointer">
                     <div className="flex h-full w-full items-center justify-center rounded-full">
                         <span className="font-bold text-xs md:text-sm text-zinc-700">8.5</span>
