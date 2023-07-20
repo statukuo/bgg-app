@@ -1,6 +1,7 @@
 import React from "react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import LogoutButton from "./logoutButton";
+import UserIcon from "./userIcon";
 
 const Header = () => (
     <header className="sticky top-0 z-50 w-full bg-dark shadow-md">
@@ -22,10 +23,10 @@ const Header = () => (
 
             <div className="py-4 col-span-3">
                 <div className="flex items-center space-x-4 justify-end text-zinc-300">
-                    <p className="hidden">User Name</p>
                     <div className="flex items-center space-x-2 p-2 rounded-full border-2 border-zink-300">
                         <Bars3Icon className="h-6 cursor-pointer" />
-                        <UserCircleIcon className="h-6 cursor-pointer" />
+                        <UserIcon />
+                        <LogoutButton />
                     </div>
                 </div>
             </div>

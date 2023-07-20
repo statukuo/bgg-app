@@ -3,8 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Home from "./components/home";
-import BottomNav from "./components/bottomNav";
-import Header from "./components/header";
+// import BottomNav from "./components/bottomNav";
+// import Header from "./components/header";
+import Layout from "./components/layout";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
 import Create from "./components/create";
@@ -30,33 +31,35 @@ const App = () => {
 
     return (
         <div>
-            <Header />
-            <Routes>
-                <Route exact path="/" element={<Login />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/list" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <RecordList />
-                    </PrivateRoute>}
-                />
-                <Route path="/create" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <Create />
-                    </PrivateRoute>}
-                />
-                <Route path="/edit/:id" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <Edit />
-                    </PrivateRoute>}
-                />
-                <Route path="/editUser" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <UserEdit />
-                    </PrivateRoute>}
-                />
-            </Routes>
-            <BottomNav />
+            {/* <Header /> */}
+            <Layout>
+                <Routes>
+                    <Route exact path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/list" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <RecordList />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/create" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <Create />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/edit/:id" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <Edit />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/editUser" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <UserEdit />
+                        </PrivateRoute>}
+                    />
+                </Routes>
+            </Layout>
+            {/* <BottomNav /> */}
         </div>
     );
 };
