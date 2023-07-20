@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Home from "./components/home";
 import Layout from "./components/layout";
-import RecordList from "./components/recordList";
-import Edit from "./components/edit";
-import Create from "./components/create";
+import GameList from "./components/gameList";
+import Edit from "./components/editGame";
+import Create from "./components/createGame";
+
 import PrivateRoute from "./components/privateRoute";
 import Login from "./components/login";
 import UserEdit from "./components/userEdit";
@@ -40,7 +41,7 @@ const App = () => {
                     />
                     <Route path="/list" element={
                         <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                            <RecordList />
+                            <GameList />
                         </PrivateRoute>}
                     />
                     <Route path="/create" element={
