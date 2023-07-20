@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteGame, getGames } from "../server_thunks/gameThunks";
 import { selectGames } from "../slicers/gamesSlice";
 
-export default function GameList () {
+const GameList = () => {
     const dispatch = useDispatch();
 
     const games = useSelector(selectGames);
@@ -16,9 +16,9 @@ export default function GameList () {
     function gameList () {
         return games.map((game) => {
             return (<tr key={game._id}>
-                <td>{game.name}</td>
-                <td>{game.position}</td>
-                <td>{game.level}</td>
+                <td>{game.title}</td>
+                <td>{game.date}</td>
+                <td>{game.maxPlayers}</td>
                 <td>
                     <Link className="btn btn-link" to={`/edit/${game._id}`}>Edit</Link> |
                     <button className="btn btn-link"
@@ -40,9 +40,9 @@ export default function GameList () {
             <table className="table table-striped" style={{ marginTop: 20 }}>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Level</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Max Players</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -50,4 +50,6 @@ export default function GameList () {
             </table>
         </div>
     );
-}
+};
+
+export default GameList;

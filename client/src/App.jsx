@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "./components/navbar";
 import GameList from "./components/gameList";
-import Edit from "./components/edit";
-import Create from "./components/create";
+import Edit from "./components/editGame";
+import Create from "./components/createGame";
 import PrivateRoute from "./components/privateRoute";
 import Login from "./components/login";
 import UserEdit from "./components/userEdit";

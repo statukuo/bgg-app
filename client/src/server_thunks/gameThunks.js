@@ -10,7 +10,7 @@ export const getGames = () => async (dispatch, getState) => {
 export const deleteGame = (id) => async (dispatch, getState) => {
     await Axios.delete(`http://localhost:5050/game/${id}`, { headers: { Authorization: `Bearer ${getState().auth.token}` } });
 
-    const newGames = getState().games.filter((el) => el._id !== id);
+    const newGames = getState().allGames.filter((el) => el._id !== id) || [];
 
     dispatch(setGames(newGames));
 };

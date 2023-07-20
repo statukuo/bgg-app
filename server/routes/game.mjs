@@ -20,9 +20,13 @@ router.get("/:id", async (req, res) => {
 // This section will help you create a new game.
 router.post("/", async (req, res) => {
     const newGame = new Game({
-        name: req.body.name,
-        position: req.body.position,
-        level: req.body.level
+        imagePath: req.body.imagePath,
+        title: req.body.title,
+        date: req.body.date,
+        duration: req.body.duration,
+        maxPlayers: req.body.maxPlayers,
+        players: req.body.players,
+        playersOnWait: req.body.playersOnWait
     });
     const result = await newGame.save();
     res.send(result).status(204);
@@ -33,9 +37,13 @@ router.patch("/:id", async (req, res) => {
     const gameToUpdate = await Game.findById(req.params.id);
 
     gameToUpdate.set({
-        name: req.body.name,
-        position: req.body.position,
-        level: req.body.level
+        imagePath: req.body.imagePath,
+        title: req.body.title,
+        date: req.body.date,
+        duration: req.body.duration,
+        maxPlayers: req.body.maxPlayers,
+        players: req.body.players,
+        playersOnWait: req.body.playersOnWait
     });
 
     const result = await gameToUpdate.save();

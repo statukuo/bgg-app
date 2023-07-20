@@ -2,9 +2,13 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const game = new Schema({
-    name: String,
-    position: String,
-    level: String
+    imagePath: String,
+    title: String,
+    date: Date,
+    duration: Number,
+    maxPlayers: Number,
+    players: Array,
+    playersOnWait: Array
 });
 
 const Game = model("Game", game);
