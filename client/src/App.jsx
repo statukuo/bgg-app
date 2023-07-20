@@ -3,8 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Home from "./components/home";
-// import BottomNav from "./components/bottomNav";
-// import Header from "./components/header";
 import Layout from "./components/layout";
 import RecordList from "./components/recordList";
 import Edit from "./components/edit";
