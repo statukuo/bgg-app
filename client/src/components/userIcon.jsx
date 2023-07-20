@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../slicers/userSlice";
 import { NavLink } from "react-router-dom";
 import { selectLoggedIn } from "../slicers/authSlice";
 import { fetchUserData } from "../server_thunks/userThunks";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function UserIcon () {
     const dispatch = useDispatch();
-    const user = useSelector(selectUser);
     const loggedIn = useSelector(selectLoggedIn);
 
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function UserIcon () {
 
     return (
         <NavLink className="nav-link" to="/editUser">
-               Welcome: {user.name}
+            <UserCircleIcon className="h-6 cursor-pointer" />
         </NavLink>
     );
 }

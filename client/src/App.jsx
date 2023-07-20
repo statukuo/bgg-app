@@ -2,17 +2,19 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import Navbar from "./components/navbar";
+import Home from "./components/home";
+import Layout from "./components/layout";
 import GameList from "./components/gameList";
 import Edit from "./components/editGame";
 import Create from "./components/createGame";
+
 import PrivateRoute from "./components/privateRoute";
 import Login from "./components/login";
 import UserEdit from "./components/userEdit";
 import { selectLoggedIn, setToken } from "./slicers/authSlice";
 
 import "bootstrap/dist/css/bootstrap.css";
-import "./styles.css";
+import "./styles/_styles.scss";
 
 const App = () => {
     const params = new URLSearchParams(window.location.search);
@@ -28,31 +30,37 @@ const App = () => {
 
     return (
         <div>
-            <Navbar />
-            <Routes>
-                <Route exact path="/" element={<Login />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/list" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <GameList />
-                    </PrivateRoute>}
-                />
-                <Route path="/create" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <Create />
-                    </PrivateRoute>}
-                />
-                <Route path="/edit/:id" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <Edit />
-                    </PrivateRoute>}
-                />
-                <Route path="/editUser" element={
-                    <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                        <UserEdit />
-                    </PrivateRoute>}
-                />
-            </Routes>
+            <Layout>
+                <Routes>
+                    <Route exact path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/home" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <Home />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/list" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <GameList />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/create" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <Create />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/edit/:id" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <Edit />
+                        </PrivateRoute>}
+                    />
+                    <Route path="/editUser" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <UserEdit />
+                        </PrivateRoute>}
+                    />
+                </Routes>
+            </Layout>
         </div>
     );
 };
