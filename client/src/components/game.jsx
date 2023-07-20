@@ -5,7 +5,6 @@ const Game = () => (
     <div className="p-3 items-center justify-center rounded-xl group flex space-x-6 bg-dark bg-opacity-50 shadow-xl">
         <div className="grid grid-cols-2 gap-3">
 
-            {/* Imagen */}
             <div className="relative">
                 <img src="./imgs/nemesis-lockown.jpg" className="h-auto w-full rounded-xl 3xl:h-full 3xl:w-full" alt="" />
                 <button className="absolute top-3 right-3 flex items-center justify-center rounded-full bg-orange-400 p-2 hover:cursor-pointer">
@@ -15,7 +14,6 @@ const Game = () => (
                 </button>
             </div>
 
-            {/* Descripcion */}
             <div className="flex flex-col justify-between">
                 <div className="">
                     <p className="text-sm md:text-lg font-bold text-white">Nemesis LockDown</p>
