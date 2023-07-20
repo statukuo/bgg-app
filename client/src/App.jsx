@@ -33,7 +33,11 @@ const App = () => {
                 <Routes>
                     <Route exact path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/home" element={<Home />} />
+                    <Route path="/home" element={
+                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
+                            <Home />
+                        </PrivateRoute>}
+                    />
                     <Route path="/list" element={
                         <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
                             <RecordList />
