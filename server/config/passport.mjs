@@ -2,6 +2,7 @@ import passport from "passport";
 import { OAuth2Strategy as GoogleStrategy } from "passport-google-oauth";
 import User from "../models/users.mjs";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
+import EmailWhitelist from "../models/emailWhitelist.mjs";
 
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -19,6 +20,12 @@ passport.use(
             callbackURL: "http://localhost:5050/auth/google/callback"
         },
         async function (accessToken, refreshToken, profile, done) {
+            const validEmail = await EmailWhitelist.findOne({ email: profile.emails[0].value });
+
+            if (!validEmail) {
+                done(null, null);
+            }
+
             let user = await User.findOne({ externalId: profile.id });
 
             if (!user) {

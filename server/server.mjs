@@ -9,6 +9,7 @@ import session from "express-session";
 import record from "./routes/record.mjs";
 import user from "./routes/user.mjs";
 import auth from "./routes/auth.mjs";
+import emailWhitelist from "./router/emailWhitelist.mjs";
 
 const PORT = process.env.PORT || 5050;
 const app = express();
@@ -26,6 +27,7 @@ app.use(session({
 
 app.use("/record", passport.authenticate("jwt"),  record);
 app.use("/user", passport.authenticate("jwt"),  user);
+app.use("/emailWhitelist", passport.authenticate("jwt"),  emailWhitelist);
 app.use("/auth", auth);
 
 // start the Express server
