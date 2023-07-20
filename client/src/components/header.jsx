@@ -1,6 +1,5 @@
 import React from "react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import LogoutButton from "./logoutButton";
 import UserIcon from "./userIcon";
 
 const Header = () => (
@@ -26,7 +25,6 @@ const Header = () => (
                     <div className="flex items-center space-x-2 p-2 rounded-full border-2 border-zink-300">
                         <Bars3Icon className="h-6 cursor-pointer" />
                         <UserIcon />
-                        <LogoutButton />
                     </div>
                 </div>
             </div>
