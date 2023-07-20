@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { getGameToEdit, patchGame } from "../server_thunks/gameThunks";
-import { selectGameToEdit } from "../slicers/gamesSlice";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { createGame } from "../../server_thunks/gameThunks";
 
 const DEFAULT_STATE = {
     imagePath: "",
@@ -14,23 +13,12 @@ const DEFAULT_STATE = {
     playersOnWait: []
 };
 
-const EditGame = () => {
-    const [form, setForm] = useState(DEFAULT_STATE);
-    const params = useParams();
-    const navigate = useNavigate();
+const CreateGame = () => {
     const dispatch = useDispatch();
-    const gameToEdit = useSelector(selectGameToEdit);
+    const [form, setForm] = useState(DEFAULT_STATE);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(getGameToEdit(params.id));
-    }, [params.id]);
-
-    useEffect(() => {
-        if (gameToEdit) {
-            setForm(gameToEdit);
-        }
-    }, [gameToEdit]);
-
+    // These methods will update the state properties.
     const updateForm = (value) => {
         return setForm((prev) => {
             return { ...prev, ...value };
@@ -39,27 +27,21 @@ const EditGame = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const editedPerson = {
-            imagePath: form.imagePath,
-            title: form.title,
-            date: form.date,
-            duration: form.duration,
-            maxPlayers: form.maxPlayers,
-            players: form.players,
-            playersOnWait: form.playersOnWait
-        };
 
-        dispatch(patchGame(params.id, editedPerson));
+        const newGame = { ...form };
 
+        dispatch(createGame(newGame));
+
+        setForm(DEFAULT_STATE);
         navigate("/list");
     };
 
     return (
         <div>
-            <h3>Update Game</h3>
+            <h3>Create New Game</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
-                    <label htmlFor="imagePath">Image Path: </label>
+                    <label htmlFor="imagePath">Image Path</label>
                     <input
                         type="text"
                         className="form-control"
@@ -69,7 +51,7 @@ const EditGame = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="title">Title: </label>
+                    <label htmlFor="title">Title</label>
                     <input
                         type="text"
                         className="form-control"
@@ -108,12 +90,10 @@ const EditGame = () => {
                         onChange={(e) => updateForm({ maxPlayers: e.target.value })}
                     />
                 </div>
-                <br />
-
                 <div className="form-group">
                     <input
                         type="submit"
-                        value="Update Game"
+                        value="Create game"
                         className="btn btn-primary"
                     />
                 </div>
@@ -122,4 +102,4 @@ const EditGame = () => {
     );
 };
 
-export default EditGame;
+export default CreateGame;

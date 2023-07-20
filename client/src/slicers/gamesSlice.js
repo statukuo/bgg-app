@@ -13,7 +13,6 @@ export const gamesSlice = createSlice({
         setGameToEdit: (state, action) => {
             state.gameToEdit = action.payload;
         }
-
     }
 });
 

@@ -2,15 +2,14 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import Home from "./components/home";
-import Layout from "./components/layout";
-import GameList from "./components/gameList";
-import Edit from "./components/editGame";
-import Create from "./components/createGame";
+import Layout from "./components/layout/layout";
+import GameList from "./components/games/gameList";
+import Edit from "./components/games/editGame";
+import Create from "./components/games/createGame";
 
 import PrivateRoute from "./components/privateRoute";
-import Login from "./components/login";
-import UserEdit from "./components/userEdit";
+import Login from "./components/user/login";
+import UserEdit from "./components/user/userEdit";
 import { selectLoggedIn, setToken } from "./slicers/authSlice";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -34,11 +33,6 @@ const App = () => {
                 <Routes>
                     <Route exact path="/" element={<Login />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/home" element={
-                        <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
-                            <Home />
-                        </PrivateRoute>}
-                    />
                     <Route path="/list" element={
                         <PrivateRoute redirectPath="/login" isAllowed={loggedIn}>
                             <GameList />
