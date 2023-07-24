@@ -42,7 +42,7 @@ export default function UserEdit () {
 
     // This following section will display the form that takes input from the user to update the data.
     return (
-        <div className="w-full max-w-sm p-4 bg-dark border border-gray-700 rounded-lg shadow sm:p-6 md:p-8">
+        <div className="w-full max-w-sm p-4 bg-dark border border-zinc-700 rounded-lg shadow sm:p-6 md:p-8">
             <form className="space-y-6" onSubmit={onSubmit}>
                 <h5 className="text-xl font-medium">Actualiza tu perfil</h5>
                 <div>
@@ -52,14 +52,14 @@ export default function UserEdit () {
                             Nombre:
                     </label>
                     <div className="flex">
-                        <span className="inline-flex items-center px-3 text-sm bg-gray-600 text-gray-400 border border-r-0 border-gray-600 rounded-l-md">
+                        <span className="inline-flex items-center px-3 text-sm bg-zinc-600 text-zinc-400 zinc-600 rounded-l-full">
                             <UserIcon className="w-4 h-4 cursor-pointer" />
                         </span>
                         <input
                             type="text"
                             name="name"
                             id="name"
-                            className="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="rounded-none rounded-r-full bg-zinc-50 text-zinc-900 focus:ring-orange-500 focus:border-orange-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                             placeholder="display name" required
                             value={form.name}
                             onChange={(e) => updateForm({ name: e.target.value })}
@@ -73,14 +73,14 @@ export default function UserEdit () {
                             Id de discord:
                     </label>
                     <div className="flex">
-                        <span className="inline-flex items-center px-3 text-sm bg-gray-600 text-gray-400 border border-r-0 border-gray-600 rounded-l-md">
+                        <span className="inline-flex items-center px-3 text-sm bg-zinc-600 text-zinc-400 rounded-l-full">
                             <AtSymbolIcon className="w-4 h-4 cursor-pointer" />
                         </span>
                         <input
                             type="text"
                             name=""
                             id="discordIdv"
-                            className="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="rounded-none rounded-r-full bg-zinc-50 text-zinc-900 focus:ring-orange-500 focus:border-orange-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                             placeholder="example#4568"
                             value={form.discordIdv || ""}
                             onChange={(e) => updateForm({ discordIdv: e.target.value })}
@@ -94,14 +94,14 @@ export default function UserEdit () {
                             Id de discord:
                     </label>
                     <div className="flex">
-                        <span className="inline-flex items-center px-3 text-sm bg-gray-600 text-gray-400 border border-r-0 border-gray-600 rounded-l-md">
+                        <span className="inline-flex items-center px-3 text-sm bg-zinc-600 text-zinc-400 rounded-l-full">
                             <PhoneIcon className="w-4 h-4 cursor-pointer" />
                         </span>
                         <input
                             type="text"
                             name="phoneNumber"
                             id="phoneNumber"
-                            className="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="rounded-none rounded-r-full bg-zinc-50 text-zinc-900 focus:ring-orange-500 focus:border-orange-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                             placeholder="666-666-666"
                             value={form.phoneNumber || ""}
                             onChange={(e) => updateForm({ phoneNumber: e.target.value })}
@@ -121,8 +121,8 @@ export default function UserEdit () {
                     >
                         Guardar
                     </button>
-                    {/* <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+                    {/* <div className="text-sm font-medium text-zinc-500 dark:text-zinc-300">
+                        Not registered? <a href="#" className="text-orange-700 hover:underline dark:text-orange-500">Create account</a>
                     </div> */}
                 </div>
             </form>
