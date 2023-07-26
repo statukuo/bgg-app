@@ -32,3 +32,17 @@ export const createGame = (newGameData) => async (dispatch, getState) => {
 
     dispatch(setGameToEdit(newGameData));
 };
+
+export const joinGame = (gameId, userId) => async (dispatch, getState) => {
+    const response = await Axios.post("http://localhost:5050/game/join", { gameId, userId }, { headers: { Authorization: `Bearer ${getState().auth.token}` } });
+
+    dispatch(setGameToEdit(response.data));
+    dispatch(getGames());
+};
+
+export const leaveGame = (gameId, userId) => async (dispatch, getState) => {
+    const response = await Axios.post("http://localhost:5050/game/leave", { gameId, userId }, { headers: { Authorization: `Bearer ${getState().auth.token}` } });
+
+    dispatch(setGameToEdit(response.data));
+    dispatch(getGames());
+};

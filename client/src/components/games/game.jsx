@@ -1,11 +1,38 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteGame } from "../../server_thunks/gameThunks";
+import { deleteGame, joinGame, leaveGame } from "../../server_thunks/gameThunks";
+import { selectUser } from "../../slicers/userSlice";
 
 const Game = ({ id, title, imagePath, date, duration, players, maxPlayers }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const currentUser = useSelector(selectUser);
+
+    const renderJoinLeaveButton = () => {
+        if (!players.find(player => player === currentUser._id)) {
+            return <div className="flex justify-end items-center">
+                <button href=""
+                    className="linear rounded-[20px] text-xs md:text-sm border-2 border-solid border-orange-400 px-4 py-2 mb-1 text-orange-400 font-semibold transition duration-200 hover:bg-orange-400 hover:text-zinc-700 active:bg-orange-500 active:text-zinc-700 active:border-orange-500"
+                    onClick={() => {
+                        dispatch(joinGame(id, currentUser._id));
+                    }}>
+                Im in Bitch!
+                </button>
+            </div>;
+        } else {
+            return <div className="flex justify-end items-center">
+                <button href=""
+                    className="linear rounded-[20px] text-xs md:text-sm border-2 border-solid border-orange-400 px-4 py-2 mb-1 text-orange-400 font-semibold transition duration-200 hover:bg-orange-400 hover:text-zinc-700 active:bg-orange-500 active:text-zinc-700 active:border-orange-500"
+                    onClick={() => {
+                        dispatch(leaveGame(id, currentUser._id));
+                    }}>
+                Leave!
+                </button>
+            </div>;
+        }
+    };
 
     return <div className="p-3 items-center justify-center rounded-xl group flex space-x-6 bg-dark bg-opacity-50 shadow-xl">
         <div className="grid grid-cols-2 gap-3">
@@ -46,9 +73,7 @@ const Game = ({ id, title, imagePath, date, duration, players, maxPlayers }) => 
                         Delete
                     </button>
                 </div>
-                <div className="flex justify-end items-center">
-                    <button href="" className="linear rounded-[20px] text-xs md:text-sm border-2 border-solid border-orange-400 px-4 py-2 mb-1 text-orange-400 font-semibold transition duration-200 hover:bg-orange-400 hover:text-zinc-700 active:bg-orange-500 active:text-zinc-700 active:border-orange-500">Im in Bitch!</button>
-                </div>
+                { renderJoinLeaveButton() }
             </div>
 
         </div>

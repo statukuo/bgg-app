@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGames } from "../../server_thunks/gameThunks";
-import { selectGames, setGameToEdit } from "../../slicers/gamesSlice";
+import { selectGames } from "../../slicers/gamesSlice";
 import Game from "./game";
 
 const GameList = () => {
@@ -10,7 +10,7 @@ const GameList = () => {
 
     useEffect(() => {
         dispatch(getGames());
-    }, [games.length, setGameToEdit]);
+    }, [JSON.stringify(games)]);
 
     const gameList = () => {
         return games.map((game) => {
@@ -26,6 +26,7 @@ const GameList = () => {
             />;
         });
     };
+
     return (
 
         <div className="bg-zinc-700">
