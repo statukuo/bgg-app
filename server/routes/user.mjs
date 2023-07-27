@@ -3,6 +3,18 @@ import User from "../models/users.mjs";
 
 const router = expressRouter();
 
+router.get("/", async (req, res) => {
+    const results = (await User.find()).map(user => {
+        return {
+            _id: user._id,
+            name: user.name,
+            discordId: user.discordId
+        };
+    });
+
+    res.send(results).status(200);
+});
+
 router.get("/current", async (req, res) => {
     const results = await User.findById(req.user.id);
     res.send(results).status(200);

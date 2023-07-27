@@ -2,13 +2,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteGame, joinGame, leaveGame } from "../../server_thunks/gameThunks";
-import { selectUser } from "../../slicers/userSlice";
+import { selectUser, selectUserList } from "../../slicers/userSlice";
 
 const Game = ({ id, title, imagePath, date, duration, players, maxPlayers }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const currentUser = useSelector(selectUser);
+    const userList = useSelector(selectUserList);
 
     const renderJoinLeaveButton = () => {
         if (!players.find(player => player === currentUser._id)) {
@@ -34,6 +35,18 @@ const Game = ({ id, title, imagePath, date, duration, players, maxPlayers }) => 
         }
     };
 
+    const renderPlayers = () => {
+        return players.map(player => {
+            const user = userList.find(user => user._id === player);
+
+            if (!user) {
+                return null;
+            }
+
+            return <p className="mt-1 text-xs md:text-sm font-medium text-zinc-300 md:mt-2" key={user._id}>{user.name}</p>;
+        });
+    };
+
     return <div className="p-3 items-center justify-center rounded-xl group flex space-x-6 bg-dark bg-opacity-50 shadow-xl">
         <div className="grid grid-cols-2 gap-3">
 
@@ -52,6 +65,7 @@ const Game = ({ id, title, imagePath, date, duration, players, maxPlayers }) => 
                     <p className="mt-1 text-xs md:text-sm font-medium text-zinc-300 md:mt-2">Fecha: <span className="font-bold">{date.split("T")[0]}</span></p>
                     <p className="mt-1 text-xs md:text-sm font-medium text-zinc-300 md:mt-2">Hora de Inicio: <span className="font-bold">{date.split("T")[1]}</span></p>
                     <p className="mt-1 text-xs md:text-sm font-medium text-zinc-300 md:mt-2">Duración: <span className="font-bold">{duration}</span></p>
+                    {renderPlayers()}
                     <p className="mt-1 text-xs md:text-sm font-medium text-zinc-300 md:mt-2">Players: <span className="font-bold">{players.length}/{maxPlayers}</span></p>
                 </div>
                 <div className="flex justify-end items-center">
