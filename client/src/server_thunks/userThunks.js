@@ -1,6 +1,12 @@
 import Axios from "axios";
-import { setUser } from "../slicers/userSlice";
+import { setUser, setUserList } from "../slicers/userSlice";
 import { setLoggedin } from "../slicers/authSlice";
+
+export const getUsers = () => async (dispatch, getState) => {
+    const response = await Axios.get("http://localhost:5050/user/", { headers: { Authorization: `Bearer ${getState().auth.token}` } });
+
+    dispatch(setUserList(response.data));
+};
 
 export const fetchUserData = () => async (dispatch, getState) => {
     let response = {};

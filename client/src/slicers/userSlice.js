@@ -6,7 +6,8 @@ export const userSlice = createSlice({
         name: "",
         email: "",
         discordId: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        userList: []
     },
     reducers: {
         setUser: (state, action) => {
@@ -15,15 +16,20 @@ export const userSlice = createSlice({
             state.email = action.payload.email;
             state.discordId = action.payload.discordId;
             state.phoneNumber = action.payload.phoneNumber;
+        },
+        setUserList: (state, action) => {
+            state.userList = action.payload;
         }
     }
 });
 
 export const selectUser = (state) => state.user;
+export const selectUserList = (state) => state.user.userList;
 
 // Action creators are generated for each case reducer function
 export const {
-    setUser
+    setUser,
+    setUserList
 } = userSlice.actions;
 
 export default userSlice.reducer;

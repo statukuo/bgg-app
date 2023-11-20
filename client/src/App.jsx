@@ -14,6 +14,7 @@ import { selectLoggedIn, setToken } from "./slicers/authSlice";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./styles/_styles.scss";
+import { getUsers } from "./server_thunks/userThunks";
 
 const App = () => {
     const params = new URLSearchParams(window.location.search);
@@ -26,6 +27,10 @@ const App = () => {
     }
 
     const loggedIn = useSelector(selectLoggedIn);
+
+    if (loggedIn) {
+        dispatch(getUsers());
+    }
 
     return (
         <div>
