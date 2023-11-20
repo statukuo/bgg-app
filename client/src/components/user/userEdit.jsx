@@ -79,11 +79,11 @@ export default function UserEdit () {
                         <input
                             type="text"
                             name=""
-                            id="discordIdv"
+                            id="discordId"
                             className="rounded-none rounded-r-full bg-zinc-50 text-zinc-900 focus:ring-orange-500 focus:border-orange-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
                             placeholder="example#4568"
-                            value={form.discordIdv || ""}
-                            onChange={(e) => updateForm({ discordIdv: e.target.value })}
+                            value={form.discordId || ""}
+                            onChange={(e) => updateForm({ discordId: e.target.value })}
                         />
                     </div>
                 </div>
@@ -91,7 +91,7 @@ export default function UserEdit () {
                     <label
                         htmlFor="phoneNumber"
                         className="block mb-2 text-sm font-medium">
-                            Id de discord:
+                            Numero telefono (opcional):
                     </label>
                     <div className="flex">
                         <span className="inline-flex items-center px-3 text-sm bg-zinc-600 text-zinc-400 rounded-l-full">
@@ -121,9 +121,6 @@ export default function UserEdit () {
                     >
                         Guardar
                     </button>
-                    {/* <div className="text-sm font-medium text-zinc-500 dark:text-zinc-300">
-                        Not registered? <a href="#" className="text-orange-700 hover:underline dark:text-orange-500">Create account</a>
-                    </div> */}
                 </div>
             </form>
         </div>
